@@ -7,6 +7,8 @@ FROM haproxy:lts-alpine
 # Install dependencies for healthcheck support
 USER root
 RUN apk --no-cache add curl openssl jq bash
+RUN apk add --no-cache libcap
+RUN setcap 'cap_net_bind_service=+ep' /usr/local/sbin/haproxy
 
 # Customization variables for certificate generation
 ARG SSL_IP
